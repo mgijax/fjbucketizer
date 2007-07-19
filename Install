@@ -1,0 +1,51 @@
+#!/bin/sh
+#
+#  Install
+###########################################################################
+#
+#  Purpose:  
+#
+#  Usage:  Install 
+#
+###########################################################################
+
+cd `dirname $0`
+
+if [ ! -r Configuration ]
+then
+    echo "Cannot read Configuration file." | tee -a ${LOG}
+    exit 1
+fi
+
+#
+# Source the configuration file.
+#
+. ./Configuration
+
+#
+# Make sure the permissions are right
+#
+
+chmod 555 fjbucketizer.py
+chmod 555 fjbucketizer.sh
+
+#
+# Create a symbolic link for backwards compatibility
+#
+rm -f gu
+ln -s fjbucketizer.sh gu
+
+#
+# Now run a test...
+#
+cd ./test
+result=`./runit`
+if [ "${result}" -ne "PASSED" ]
+then
+	echo "Installation test failed."
+	echo $result
+	exit 1
+fi
+
+echo "Installation successful."
+exit 0
