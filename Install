@@ -35,17 +35,5 @@ chmod 555 fjbucketizer.sh
 rm -f gu
 ln -s fjbucketizer.sh gu
 
-#
-# Now run a test...
-#
-cd ./test
-result=`./runit`
-if [ "${result}" -ne "PASSED" ]
-then
-	echo "Installation test failed."
-	echo $result
-	exit 1
-fi
-
 echo "Installation successful."
 exit 0

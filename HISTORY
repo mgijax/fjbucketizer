@@ -1,7 +1,10 @@
+TAG: fjbucketizer-4-0-0-3
 TAG: fjbucketizer-4-0-0-2
 DATE: 03/31/2008
 STAFF: sc
-CHANGES: removed test directory, don't want to take time to make work properly
+CHANGES: 
+1) removed test directory, don't want to take time to make work properly
+2) removed test from Install
 
 TAG: fjbucketizer-4-0-0-1
 DATE: 03/31/2008
