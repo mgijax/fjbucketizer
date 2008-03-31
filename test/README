@@ -1,6 +1,0 @@
-Running these two commands:
-
-../gu -1 testdata/mSample.gff -2 testdata/iSample.gff -n -l LOG -d testrun
-diff expected testrun | wc -l 
-
-should print 0.
