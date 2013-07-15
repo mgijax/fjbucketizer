@@ -16,5 +16,5 @@ fi
 
 . ${MGICONFIG}/master.config.sh
 
-GNUSORT=/usr/local/bin/sort
+GNUSORT=`which sort`
 export GNUSORT
