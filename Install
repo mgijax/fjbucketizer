@@ -22,18 +22,5 @@ fi
 #
 . ./Configuration
 
-#
-# Make sure the permissions are right
-#
-
-chmod 555 fjbucketizer.py
-chmod 555 fjbucketizer.sh
-
-#
-# Create a symbolic link for backwards compatibility
-#
-rm -f gu
-ln -s fjbucketizer.sh gu
-
 echo "Installation successful."
 exit 0
