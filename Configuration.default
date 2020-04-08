@@ -15,6 +15,3 @@ then
 fi
 
 . ${MGICONFIG}/master.config.sh
-
-GNUSORT=`which sort`
-export GNUSORT
