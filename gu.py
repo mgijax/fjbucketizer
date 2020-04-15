@@ -29,8 +29,12 @@
 # the output format is somewhat different from no-aggregate mode. 
 #
 # Sample invocation:
-#     python3 gu.py -a -C --f1 /data/research/yz/New_GU/gff3/MGI.exome.gff3 --f2 /data/research/yz/ENSEMBL/mouse_99/gff3/ENSEMBL_all.gff3 --are1="MGI:[0-9]+" --are2="ENSEMBL:ENSMUSG[0-9]+"
-# 
+#
+#       python3 gu.py -a -C --f1 /data/research/yz/New_GU/gff3/MGI_GU.gff3 --f2 /data/research/yz/ENSEMBL/mouse_99/gff3/ENSEMBL_all.gff3 --are1="MGI:[0-9]+" --are2="ENSEMBL:ENSMUSG[0-9]+" &
+#
+# The wrapper script, gu, takes the same args:
+#
+#       gu -a -C --f1 /data/research/yz/New_GU/gff3/MGI_GU.gff3 --f2 /data/research/yz/ENSEMBL/mouse_99/gff3/ENSEMBL_all.gff3 --are1="MGI:[0-9]+" --are2="ENSEMBL:ENSMUSG[0-9]+" &
 #--------------------------------------------
 
 import sys
