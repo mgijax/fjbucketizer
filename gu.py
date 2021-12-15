@@ -75,12 +75,15 @@ class GUPipeline :
                 default=None,
                 help="The second GFF file.")
 
-        self.parser.add_option("-k", "--minOverlap", 
-                dest="k",
-                metavar=" AMT",
-                default="1",
-                help="The minimum required overlap. (Default: 1)")
-
+        self.parser.add_option("-k", metavar="[+-]N[%] | ==",
+            action="store", dest="k", default=1,
+            help="Overlap amount. (Default: 1) " + \
+            "Examples: -k 100 : overlap of at least 100 bases. " + \
+            "-k -1000 : separated by no more than 1 kb. " 
+               "-k 50% : overlap of >= 50% of longer of pair. " + \
+               "-k -85% : overlap of >= 85% of shorter of pair. " + \
+               "-k == : coordinates must match exactly." + \
+               "")
         self.parser.add_option("--t1", 
             dest="types1",
             action="append",
@@ -493,7 +496,7 @@ class GUPipeline :
             "--out-file=" + genes2
             ])
 
-        # Find all overlapping feature pairs.
+        # Fjoin to find all overlapping feature pairs.
         ovlExons=self.mkTmp()
         args = [
             "-1", f1,
@@ -518,6 +521,10 @@ class GUPipeline :
 
         if novl == 0:
             self.debug("No overlapping features detected.\n")
+            self.debug("Exiting.\n")
+            self.cleanupTempFiles()
+            sys.exit(0)
+
 
         #  Aggregate overlapping feature pairs into higher-level overlaps.
         #  Count the base features involved.
