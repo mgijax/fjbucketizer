@@ -76,7 +76,7 @@ class GUPipeline :
                 help="The second GFF file.")
 
         self.parser.add_option("-k", metavar="[+-]N[%] | ==",
-            action="store", dest="k", default=1,
+            action="store", dest="k", default="1",
             help="Overlap amount. (Default: 1) " + \
             "Examples: -k 100 : overlap of at least 100 bases. " + \
             "-k -1000 : separated by no more than 1 kb. " 
