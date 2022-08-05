@@ -75,15 +75,23 @@ class GUPipeline :
                 default=None,
                 help="The second GFF file.")
 
-        self.parser.add_option("-k", metavar="[+-]N[%] | ==",
+        self.parser.add_option("-k", metavar="AMT[,AMT]",
             action="store", dest="k", default="1",
-            help="Overlap amount. (Default: 1) " + \
-            "Examples: -k 100 : overlap of at least 100 bases. " + \
-            "-k -1000 : separated by no more than 1 kb. " 
-               "-k 50% : overlap of >= 50% of longer of pair. " + \
-               "-k -85% : overlap of >= 85% of shorter of pair. " + \
-               "-k == : coordinates must match exactly." + \
-               "")
+            help='''Minimum overlap. 
+                To specify a minimum number of bases that overlaps must include, provide an integer.
+                E.g., to require at least 10 bases of overlap, specify "-k 10".
+                The default for this parameter is "-k 1".
+                Providing a negative integer specifies maximum separation.
+                E.g., to require a maximum separation of 100 bases, specify "-k -100".
+                You can specify minimum overlap as a percentage of the feature length by appending a "%".
+                E.g. to specify at least 50% of each feature overlaps, "-k 50%".
+                You can specify different amounts for the two features by providing two amounts separated by a comma (no spaces).
+                The first amount is for the shorter feature and the second for the longer.
+                E.g., to require overlaps to include at least 80% of the length the shorter feature and 20% of the longer feature, specify "-k 80%,20%.".
+                Finally, you can combine a percent with a base-pair amount.
+                E.g., to require overlaps to include the entirety of the shorter feature and at least one base the longer feature, specify "-k 100%,1".
+                ''')
+
         self.parser.add_option("--t1", 
             dest="types1",
             action="append",
@@ -226,6 +234,12 @@ class GUPipeline :
             default=None,
             help="Log file. (Default = writes to stderr)")
 
+        self.parser.add_option("-P", "--preserve",
+            dest="preserveTempFiles",
+            default=False,
+            action="store_true",
+            help="Preserve temp files. Useful for debugging. Default is to remove them after a successful run.")
+
         # 2. Parse the command line
         #
         (self.options,xxx) = self.parser.parse_args(argv)
@@ -299,8 +313,12 @@ class GUPipeline :
 
     #----------------------------------------------------
     def cleanupTempFiles(self):
+        if self.options.preserveTempFiles:
+            self.debug("Temp files preserved.\n")
+            return
         for tf in self.tempfiles:
             os.remove(tf)
+        self.debug("Temp files removed.\n")
 
     #----------------------------------------------------
     def debug(self,s,ts=False):
